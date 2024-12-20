@@ -7,71 +7,93 @@
 </head>
 <body>
     <script>  
+        // Points for the machine and human playing
+       humanScore = 0;
+       computerScore = 0;
+
        // Returns a str 'rock', 'paper' or 'scissors' 
        function getComputerChoice() {
 
-        // Contains a number between, 0,1 and 2 
-        let computer_number;
-        
-        // Creates variable to hold the computer choice
-        let computer_choice;
-        
-        // Generates a number between, 0,1 and 2 
-        computer_number = Math.floor(Math.random() * 3)
+            // Contains a number between, 0,1 and 2 
+            let computer_number;
+            
+            // Creates variable to hold the computer choice
+            let computer_choice;
+            
+            // Generates a number between, 0,1 and 2 
+            computer_number = Math.floor(Math.random() * 3)
 
-        // Asigns number to a certain choice
-        if (computer_number === 0) {
-            computer_choice = 'rock'
-        } 
-        else if (computer_number === 1) {
-            computer_choice = 'paper'
-        }
-        else {
-            computer_choice = 'scissors'
-        }
-        
-        return computer_choice
+            // Asigns number to a certain choice
+            if (computer_number === 0) {
+                computer_choice = 'rock'
+            } 
+            else if (computer_number === 1) {
+                computer_choice = 'paper'
+            }
+            else {
+                computer_choice = 'scissors'
+            }
+            
+            return computer_choice
        }
 
        // Returns a str in lowercase wrote by the user. Should be 'rock', 'paper' or scissors.
        function getHumanChoice() {
 
-        // Prompts the user for an option
-        let human_choice = prompt('Rock, paper or scissors?')
-        return human_choice.toLowerCase()
+            // Prompts the user for an option
+            let human_choice = prompt('Rock, paper or scissors?')
+
+            // Makes answer case-insensitive
+            return human_choice.toLowerCase()
+
        }
-
-       getComputerChoice()
-       getHumanChoice()
-
-       humanScore = 0;
-       computerScore = 0;
 
        function playRound (humanChoice, computerChoice) {
         
-        // Checks for a draw
-        if (humanChoice === computerChoice) {
-            console.log('It is a draw!')
+            // Checks for a draw
+            if (humanChoice === computerChoice) {
+                console.log('It is a draw!')
+            } else {
+
+                // Rock selected
+                switch (humanChoice === 'rock') {
+                    
+                    case computerChoice === 'paper':
+                        computerScore += 1;
+                        console.log(`${computerChoice} beats ${humanChoice}`);
+                    
+                    case computerChoice === 'scissors': 
+                        humanScore += 1;
+                        console.log(`${humanChoice} beats ${computerChoice}`);
+                
+                // Paper selected
+                switch (humanChoice === 'paper') {
+                    case computerChoice === 'rock':
+                        humanScore += 1;
+                        console.log(`${humanChoice} beats ${computerChoice}`);
+
+                    case computerChoice === 'scissors':
+                        computerScore += 1;
+                        console.log(`${computerChoice} beats ${humanChoice}`);
+                }
+
+                // Scissors selected
+                switch (humanChoice === 'scissors') {
+                    case computerChoice === 'paper':
+                        humanScore += 1;
+                        console.log(`${humanChoice} beats ${computerChoice}`);
+
+                    case computerChoice === 'rock':
+                        computerScore += 1;
+                        console.log(`${computerChoice} beats ${humanChoice}`);
+            }
         }
+    }
+}
 
-        else if (humanChoice != computerChoice) {
-            // rock
-            switch (humanChoice === 'rock') {
-                case computerChoice === 'paper'
-                case computerChoice === 'scissors'
-            }
+    // Initiates the game, taking a value from the user and the machine.
+    playRound(getHumanChoice(), getComputerChoice())
 
-            switch (humanChoice === 'paper') {
-                case computerChoice === 'rock'
-                case computerChoice === 'scissors'
-            }
-
-            switch (humanChoice === 'scissors') {
-                case computerChoice === 'paper'
-                case computerChoice === 'rock'
-            }
-        }
-       }
     </script>
 
 </body>

@@ -7,10 +7,10 @@
 </head>
 <body>
     <script>  
-        // Points for the machine and human playing
+       // Points for the machine and human playing
        let humanScore = 0;
        let computerScore = 0;
-
+       
        // Returns a str 'rock', 'paper' or 'scissors' 
        function getComputerChoice() {
 
@@ -47,55 +47,78 @@
             return human_choice.toLowerCase()
 
        }
+    
+    // Game functionality/logic
+    function playRound (humanChoice, computerChoice) {
+            
+        // Checks for a draw
+        if (humanChoice === computerChoice) {
+            console.log('It is a draw!')
+        } else {
 
-       function playRound (humanChoice, computerChoice) {
-        
-            // Checks for a draw
-            if (humanChoice === computerChoice) {
-                console.log('It is a draw!')
-            } else {
-
-                // Rock selected
-                switch (humanChoice === 'rock') {
-                    
-                    case computerChoice === 'paper':
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`);
-                    
-                    case computerChoice === 'scissors': 
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`);
+            // Rock selected
+            switch (humanChoice) {
                 
-                // Paper selected
-                switch (humanChoice === 'paper') {
-                    case computerChoice === 'rock':
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`);
+                case 'rock':
 
-                    case computerChoice === 'scissors':
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`);
-                }
+                    // Computer wins situation
+                    if (computerChoice === 'paper'){
+                        computerScore += 1 
+                        console.log(`${computerChoice} beats ${humanChoice}`)
+                    }
+                    // win situation
+                    else {
+                        humanScore += 1
+                        console.log(`${humanChoice} beats ${computerChoice}`)
+                    }
+                
+                case 'paper': 
+                    
+                    // Computer wins situation
+                    if (computerChoice === 'scissors'){
+                        computerScore += 1 
+                        console.log(`${computerChoice} beats ${humanChoice}`)
+                    }
+                    // win situation
+                    else {
+                        humanScore += 1
+                        console.log(`${humanChoice} beats ${computerChoice}`)
+                    };
 
-                // Scissors selected
-                switch (humanChoice === 'scissors') {
-                    case computerChoice === 'paper':
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`);
-
-                    case computerChoice === 'rock':
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`);
+                case 'scissors': 
+                    // Computer wins situation
+                    if (computerChoice === 'scissors'){
+                        computerScore += 1 
+                        console.log(`${computerChoice} beats ${humanChoice}`)
+                    }
+                    // win situation
+                    else {
+                        humanScore += 1
+                        console.log(`${humanChoice} beats ${computerChoice}`)
+                    };
             }
         }
     }
-}
+
+    function playGame (round) {
+        for (let i = 1; i < 5; i++) {
+            console.log(`We are playing round ${i}`)
+            if (humanScore === 3 || computerScore === 3) {
+                console.log('Game is finished!');
+            } else {
+                playRound(humanSelection, computerSelection)
+                console.log(`Human Score: ${humanScore}`)
+                console.log(`Computer Score: ${computerScore}`)
+            }
+        }
+    }
+
     // Selections from both players
     const humanSelection = getHumanChoice()
     const computerSelection =  getComputerChoice()
     
     // Initiates the game, taking a value from the user and the machine.
-    playRound(humanSelection, computerSelection)
+    playGame()
 
     </script>
 

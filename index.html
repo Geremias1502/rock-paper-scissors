@@ -33,7 +33,7 @@
         return computer_choice
        }
 
-       // Returns a str wrote by the user. Should be 'rock', 'paper' or scissors.
+       // Returns a str in lowercase wrote by the user. Should be 'rock', 'paper' or scissors.
        function getHumanChoice() {
 
         // Prompts the user for an option
@@ -44,6 +44,34 @@
        getComputerChoice()
        getHumanChoice()
 
+       humanScore = 0;
+       computerScore = 0;
+
+       function playRound (humanChoice, computerChoice) {
+        
+        // Checks for a draw
+        if (humanChoice === computerChoice) {
+            console.log('It is a draw!')
+        }
+
+        else if (humanChoice != computerChoice) {
+            // rock
+            switch (humanChoice === 'rock') {
+                case computerChoice === 'paper'
+                case computerChoice === 'scissors'
+            }
+
+            switch (humanChoice === 'paper') {
+                case computerChoice === 'rock'
+                case computerChoice === 'scissors'
+            }
+
+            switch (humanChoice === 'scissors') {
+                case computerChoice === 'paper'
+                case computerChoice === 'rock'
+            }
+        }
+       }
     </script>
 
 </body>

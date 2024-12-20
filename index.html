@@ -63,59 +63,80 @@
 
                     // Computer wins situation
                     if (computerChoice === 'paper'){
-                        computerScore += 1 
+                        computerScore += 1;
                         console.log(`${computerChoice} beats ${humanChoice}`)
+                        break;
                     }
                     // win situation
                     else {
-                        humanScore += 1
+                        humanScore += 1;
                         console.log(`${humanChoice} beats ${computerChoice}`)
+                        break;
                     }
                 
                 case 'paper': 
                     
                     // Computer wins situation
                     if (computerChoice === 'scissors'){
-                        computerScore += 1 
+                        computerScore += 1;
                         console.log(`${computerChoice} beats ${humanChoice}`)
+                        break;
                     }
                     // win situation
                     else {
-                        humanScore += 1
+                        humanScore += 1;
                         console.log(`${humanChoice} beats ${computerChoice}`)
-                    };
+                        break;
+                    }
 
                 case 'scissors': 
                     // Computer wins situation
                     if (computerChoice === 'scissors'){
-                        computerScore += 1 
+                        computerScore += 1;
                         console.log(`${computerChoice} beats ${humanChoice}`)
+                        break;
                     }
+                    
                     // win situation
                     else {
-                        humanScore += 1
+                        humanScore += 1;
                         console.log(`${humanChoice} beats ${computerChoice}`)
+                        break;
                     };
             }
         }
     }
 
     function playGame (round) {
-        for (let i = 1; i < 5; i++) {
+        for (let i = 1; i < 6; i++) {
+            
+            // Updates the values of the variables
+            // Choices from both players
+            let humanSelection = getHumanChoice()
+            let computerSelection =  getComputerChoice()
+
+            // Informs about round being played
             console.log(`We are playing round ${i}`)
-            if (humanScore === 3 || computerScore === 3) {
-                console.log('Game is finished!');
-            } else {
-                playRound(humanSelection, computerSelection)
-                console.log(`Human Score: ${humanScore}`)
-                console.log(`Computer Score: ${computerScore}`)
+                
+            // Then Starts the round
+            playRound(humanSelection, computerSelection)
+                
+            // Round finishes, so score is shown
+            console.log(`Human Score: ${humanScore}`)
+            console.log(`Computer Score: ${computerScore}`)
+
             }
+
+        // Once loop ends, announces who won and finishes the game
+        console.log('Game is finished!');
+        
+        // Checks who won
+        if (humanScore > computerScore) {
+            console.log('Human won!')
+        } else {
+            console.log('Computer won!')
         }
     }
-
-    // Selections from both players
-    const humanSelection = getHumanChoice()
-    const computerSelection =  getComputerChoice()
     
     // Initiates the game, taking a value from the user and the machine.
     playGame()

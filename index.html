@@ -8,8 +8,8 @@
 <body>
     <script>  
         // Points for the machine and human playing
-       humanScore = 0;
-       computerScore = 0;
+       let humanScore = 0;
+       let computerScore = 0;
 
        // Returns a str 'rock', 'paper' or 'scissors' 
        function getComputerChoice() {
@@ -90,9 +90,12 @@
         }
     }
 }
-
+    // Selections from both players
+    const humanSelection = getHumanChoice()
+    const computerSelection =  getComputerChoice()
+    
     // Initiates the game, taking a value from the user and the machine.
-    playRound(getHumanChoice(), getComputerChoice())
+    playRound(humanSelection, computerSelection)
 
     </script>
 

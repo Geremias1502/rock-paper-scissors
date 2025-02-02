@@ -14,9 +14,11 @@
     </div>
 
     <script>  
+        // Creates div to encapsulate the buttons 
         const div = document.createElement("div");
         const element = document.getElementById("button-container");
 
+        // Catches the human selection, initiating the game
         buttonContainer = document.addEventListener("click", playRound(getHumanChoice())) 
 
         // Points for the machine and human playing
@@ -49,8 +51,8 @@
             return computer_choice
        }
        
-       // Returns a str in lowercase wrote by the user. 
-       // Should be 'rock', 'paper' or scissors.
+       // Returns a str in lowercase chosen by the user. 
+       // Should be 'rock', 'paper' or 'scissors'.
        function getHumanChoice() {
 
             buttonContainer = document.querySelector('#button-container');
@@ -58,15 +60,13 @@
             // Gets the option selected based on the name of the button
             buttonContainer.addEventListener("click", event => {
                 humanChoice = event.target.textContent.toLowerCase()
-                playRound(humanChoice) 
+                return humanChoice 
             })
        }
     
         // Game functionality/logic
         function playRound (humanChoice) {
             
-            playGame()
-
             computerChoice = getComputerChoice();
 
             console.log(humanChoice)
@@ -78,19 +78,21 @@
                 element.appendChild(div);
             } else {
 
-                // Rock selected
+                // Decides wether the result is a win or a defeat
+                // Decides from the human perspective.
                 switch (humanChoice) {
                     
                     case 'rock':
 
-                        // Computer wins situation
+                        // Against paper - Computer wins situation
                         if (computerChoice === 'paper'){
                             computerScore += 1;
                             div.textContent = `${computerChoice} beats ${humanChoice}`;
                             element.appendChild(div);
                             break;
                         }
-                        // win situation
+                        
+                        // Against scissors - Human wins situation
                         else {
                             humanScore += 1;
                             div.textContent = `${humanChoice} beats ${computerChoice}`;
@@ -100,14 +102,15 @@
                     
                     case 'paper': 
                         
-                        // Computer wins situation
+                        // Against scissors - Computer wins situation
                         if (computerChoice === 'scissors'){
                             computerScore += 1;
                             div.textContent = `${computerChoice} beats ${humanChoice}`;
                             element.appendChild(div);
                             break;
                         }
-                        // Human win situation
+
+                        // Against Rock - Human wins situation
                         else {
                             humanScore += 1;
                             div.textContent = `${humanChoice} beats ${computerChoice}`;
@@ -116,7 +119,8 @@
                         }
 
                     case 'scissors': 
-                        // Computer wins situation
+                        
+                        // Against Rock - Computer wins situation
                         if (computerChoice === 'rock'){
                             computerScore += 1;
                             div.textContent = `${computerChoice} beats ${humanChoice}`
@@ -124,7 +128,7 @@
                             break;
                         }
                         
-                        // win situation
+                        // Against Paper - Human wins situation
                         else {
                             humanScore += 1;
                             div.textContent = `${humanChoice} beats ${computerChoice}`;
@@ -135,7 +139,7 @@
             }
         }
 
-            // Handles the game logic 
+        // Handles the game logic 
         function playGame () {
             for (let i = 1; i < 6; i++) {
 
@@ -143,7 +147,7 @@
                 console.log(`We are playing round ${i}`)
                     
                 // Then Starts the round
-                playRound(humanSelection, computerSelection)
+                playRound(getHumanChoice, getComputerChoice)
                     
                 // Round finishes, so score is shown
                 console.log(`Human Score: ${humanScore}`)

@@ -18,8 +18,14 @@
         const div = document.createElement("div");
         const element = document.getElementById("button-container");
 
+        // Creates the rounds counter
+        let roundCounter = 0;
+
         // Catches the human selection, initiating the game
-        buttonContainer = document.addEventListener("click", playRound(getHumanChoice())) 
+        document.addEventListener("click", event => {
+            humanChoice = event.target.textContent.toLowerCase()
+            playRound(humanChoice)
+        }) 
 
         // Points for the machine and human playing
         let humanScore = 0;
@@ -50,27 +56,13 @@
             
             return computer_choice
        }
-       
-       // Returns a str in lowercase chosen by the user. 
-       // Should be 'rock', 'paper' or 'scissors'.
-       function getHumanChoice() {
-
-            buttonContainer = document.querySelector('#button-container');
-            
-            // Gets the option selected based on the name of the button
-            buttonContainer.addEventListener("click", event => {
-                humanChoice = event.target.textContent.toLowerCase()
-                return humanChoice 
-            })
-       }
     
         // Game functionality/logic
-        function playRound (humanChoice) {
+        function playRound(humanChoice) {
             
-            computerChoice = getComputerChoice();
+            displayRound()
 
-            console.log(humanChoice)
-            console.log(computerChoice)
+            computerChoice = getComputerChoice();
 
             // Checks for a draw
             if (humanChoice === computerChoice) {
@@ -137,33 +129,42 @@
                         };
                 }
             }
+
+            // Checks if the roundcounter is not over the limit of 5.
+            checkRound()
+
         }
 
-        // Handles the game logic 
-        function playGame () {
-            for (let i = 1; i < 6; i++) {
+        // Adds a div showing a the number of round being played
+        function displayRound() {
+            ++roundCounter;
 
-                // Informs about round being played
-                console.log(`We are playing round ${i}`)
-                    
-                // Then Starts the round
-                playRound(getHumanChoice, getComputerChoice)
-                    
-                // Round finishes, so score is shown
-                console.log(`Human Score: ${humanScore}`)
-                console.log(`Computer Score: ${computerScore}`)
+            // Informs about round being played
+            displayMessage(`We are playing round ${roundCounter}`);
+        }
 
+        // Shows scores and determines if the game is finished.
+        function checkRound() {   
+                
+            // Round finishes, so score is shown
+            displayMessage(`Human Score: ${humanScore} Computer Score: ${computerScore}`); 
+
+            if (roundCounter === 5) {
+                displayMessage(`Game is finished!`);
+                
+                // Writes a new div with the winner 
+                if (humanScore > computerScore) {
+                    displayMessage(`Human won!`);
+                } else {
+                    displayMessage(`Computer Won!`);
                 }
-
-            // Once loop ends, announces who won and finishes the game
-            console.log('Game is finished!');
-            
-            // Checks who won
-            if (humanScore > computerScore) {
-                console.log('Human won!')
-            } else {
-                console.log('Computer won!')
             }
+        }
+
+        function displayMessage(message) {
+            const newDiv = document.createElement("div");
+            newDiv.textContent = message;
+            element.appendChild(newDiv);
         }
 
     </script>

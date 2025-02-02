@@ -6,10 +6,22 @@
     <title>Document</title>
 </head>
 <body>
+    
+    <div id="button-container" >
+        <button>Rock</button>
+        <button>Paper</button>
+        <button>Scissors</button>
+    </div>
+
     <script>  
-       // Points for the machine and human playing
-       let humanScore = 0;
-       let computerScore = 0;
+        const div = document.createElement("div");
+        const element = document.getElementById("button-container");
+
+        buttonContainer = document.addEventListener("click", playRound(getHumanChoice())) 
+
+        // Points for the machine and human playing
+        let humanScore = 0;
+        let computerScore = 0;
        
        // Returns a str 'rock', 'paper' or 'scissors' 
        function getComputerChoice() {
@@ -36,110 +48,119 @@
             
             return computer_choice
        }
-
-       // Returns a str in lowercase wrote by the user. Should be 'rock', 'paper' or scissors.
+       
+       // Returns a str in lowercase wrote by the user. 
+       // Should be 'rock', 'paper' or scissors.
        function getHumanChoice() {
 
-            // Prompts the user for an option
-            let human_choice = prompt('Rock, paper or scissors?')
-
-            // Makes answer case-insensitive
-            return human_choice.toLowerCase()
-
+            buttonContainer = document.querySelector('#button-container');
+            
+            // Gets the option selected based on the name of the button
+            buttonContainer.addEventListener("click", event => {
+                humanChoice = event.target.textContent.toLowerCase()
+                playRound(humanChoice) 
+            })
        }
     
-    // Game functionality/logic
-    function playRound (humanChoice, computerChoice) {
+        // Game functionality/logic
+        function playRound (humanChoice) {
             
-        // Checks for a draw
-        if (humanChoice === computerChoice) {
-            console.log('It is a draw!')
-        } else {
+            playGame()
 
-            // Rock selected
-            switch (humanChoice) {
-                
-                case 'rock':
+            computerChoice = getComputerChoice();
 
-                    // Computer wins situation
-                    if (computerChoice === 'paper'){
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`)
-                        break;
-                    }
-                    // win situation
-                    else {
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`)
-                        break;
-                    }
-                
-                case 'paper': 
+            console.log(humanChoice)
+            console.log(computerChoice)
+
+            // Checks for a draw
+            if (humanChoice === computerChoice) {
+                div.textContent = `It is a draw!`;
+                element.appendChild(div);
+            } else {
+
+                // Rock selected
+                switch (humanChoice) {
                     
-                    // Computer wins situation
-                    if (computerChoice === 'scissors'){
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`)
-                        break;
-                    }
-                    // win situation
-                    else {
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`)
-                        break;
-                    }
+                    case 'rock':
 
-                case 'scissors': 
-                    // Computer wins situation
-                    if (computerChoice === 'scissors'){
-                        computerScore += 1;
-                        console.log(`${computerChoice} beats ${humanChoice}`)
-                        break;
-                    }
+                        // Computer wins situation
+                        if (computerChoice === 'paper'){
+                            computerScore += 1;
+                            div.textContent = `${computerChoice} beats ${humanChoice}`;
+                            element.appendChild(div);
+                            break;
+                        }
+                        // win situation
+                        else {
+                            humanScore += 1;
+                            div.textContent = `${humanChoice} beats ${computerChoice}`;
+                            element.appendChild(div);
+                            break;
+                        }
                     
-                    // win situation
-                    else {
-                        humanScore += 1;
-                        console.log(`${humanChoice} beats ${computerChoice}`)
-                        break;
-                    };
+                    case 'paper': 
+                        
+                        // Computer wins situation
+                        if (computerChoice === 'scissors'){
+                            computerScore += 1;
+                            div.textContent = `${computerChoice} beats ${humanChoice}`;
+                            element.appendChild(div);
+                            break;
+                        }
+                        // Human win situation
+                        else {
+                            humanScore += 1;
+                            div.textContent = `${humanChoice} beats ${computerChoice}`;
+                            element.appendChild(div);
+                            break;
+                        }
+
+                    case 'scissors': 
+                        // Computer wins situation
+                        if (computerChoice === 'rock'){
+                            computerScore += 1;
+                            div.textContent = `${computerChoice} beats ${humanChoice}`
+                            element.appendChild(div);
+                            break;
+                        }
+                        
+                        // win situation
+                        else {
+                            humanScore += 1;
+                            div.textContent = `${humanChoice} beats ${computerChoice}`;
+                            element.appendChild(div);
+                            break;
+                        };
+                }
             }
         }
-    }
 
-    function playGame (round) {
-        for (let i = 1; i < 6; i++) {
+            // Handles the game logic 
+        function playGame () {
+            for (let i = 1; i < 6; i++) {
+
+                // Informs about round being played
+                console.log(`We are playing round ${i}`)
+                    
+                // Then Starts the round
+                playRound(humanSelection, computerSelection)
+                    
+                // Round finishes, so score is shown
+                console.log(`Human Score: ${humanScore}`)
+                console.log(`Computer Score: ${computerScore}`)
+
+                }
+
+            // Once loop ends, announces who won and finishes the game
+            console.log('Game is finished!');
             
-            // Updates the values of the variables
-            // Choices from both players
-            let humanSelection = getHumanChoice()
-            let computerSelection =  getComputerChoice()
-
-            // Informs about round being played
-            console.log(`We are playing round ${i}`)
-                
-            // Then Starts the round
-            playRound(humanSelection, computerSelection)
-                
-            // Round finishes, so score is shown
-            console.log(`Human Score: ${humanScore}`)
-            console.log(`Computer Score: ${computerScore}`)
-
+            // Checks who won
+            if (humanScore > computerScore) {
+                console.log('Human won!')
+            } else {
+                console.log('Computer won!')
             }
-
-        // Once loop ends, announces who won and finishes the game
-        console.log('Game is finished!');
-        
-        // Checks who won
-        if (humanScore > computerScore) {
-            console.log('Human won!')
-        } else {
-            console.log('Computer won!')
         }
-    }
-    
-    // Initiates the game, taking a value from the user and the machine.
-    playGame()
 
     </script>
 
